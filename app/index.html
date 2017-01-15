@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="borderbox">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TinyPNG</title>
+    <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="./src/css/style.css">
+</head>
+
+<body>
+    <div id="J_App">
+        <div class="block">
+            <h1>一、配置</h1>
+            <div class="content">
+                <label for="">请输入TinyPNG 的 KEY：</label>
+                <input type="text" class="input" placeholder="key" v-model="key">
+            </div>
+            <div class="content">
+                <p>添加图片：</p>
+                <div class="drag" id="J_FileSelect">
+                    拖拽PNG/JPG文件至此
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <h1>二、操作</h1>
+            <div class="content">
+                <table class="list-table tac">
+                    <tr>
+                        <th class="name">文件</th>
+                        <th class="status">状态</th>
+                        <th class="size">原大小</th>
+                        <th class="size">新大小</th>
+                        <th class="ratio">压缩率%</th>
+                        <th>操作</th>
+                    </tr>
+                    <tbody>
+                        <tr v-for="item in list">
+                            <td class="name tal">{{item.name}}</td>
+                            <td>{{item.status}}</td>
+                            <td>{{item.osize}}</td>
+                            <td>{{item.nsize}}</td>
+                            <td>{{item.ratio}}</td>
+                            <td><a href="javascript:void(0)" class="remove" @click="remove(item)">删除</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="tac">
+                    <button @click="tiny">开始 TinyPNG</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./src/js/vue.min.js"></script>
+    <script src="./src/js/main.js"></script>
+</body>
+
+</html>

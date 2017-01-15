@@ -1,0 +1,90 @@
+html {
+  font-size: 16px;
+}
+
+.block {
+  margin: 1rem 2rem 2rem;
+}
+
+.tac {
+  text-align: center;
+}
+
+.tal {
+  text-align: left;
+}
+
+h1 {
+  margin-bottom: .3rem;
+  padding-bottom: .3rem;
+  border-bottom: 1px solid #333;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+button {
+  padding: .2rem .8rem;
+  border: 1px solid #999;
+  background: #fff;
+  font-size: .9rem;
+  border-radius: .3rem;
+}
+
+.input {
+  width: 20rem;
+  outline: none;
+  border: 0;
+  border-bottom: 1px solid #333;
+}
+
+.drag {
+  padding: 1rem 2rem;
+  border: 2px dashed #666;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.drag.dragin {
+  background: #ffd4d4;
+}
+
+.list-table {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.list-table tr {
+  border-bottom: 1px solid #333;
+}
+
+.list-table th,
+.list-table td {
+  padding: .2rem .5rem;
+}
+
+.list-table .name {
+  width: 30%;
+}
+
+.list-table .status {
+  width: 15%;
+}
+
+.list-table .size {
+  width: 15%;
+}
+
+.list-table .ratio {
+  width: 15%;
+}
+
+.list-table .remove,
+.list-table .remove:visited,
+.list-table .remove:active {
+  color: #c00;
+  text-decoration: none;
+}
+
+.list-table .remove:hover {
+  font-weight: 900;
+}

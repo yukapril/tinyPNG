@@ -1,0 +1,19 @@
+{
+  "name": "workspace_tinypng",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "pack:win": "electron-packager ./ TinyPNG --platform=win32 --arch=all --out=./pack --overwrite --download.mirror=https://npm.taobao.org/mirrors/electron/",
+    "pack:mac": "electron-packager ./ TinyPNG --platform=mas --arch=all --out=./pack --overwrite --download.mirror=https://npm.taobao.org/mirrors/electron/"
+  },
+  "author": "yukapril",
+  "license": "ISC",
+  "dependencies": {
+    "electron-packager": "^8.4.0",
+    "electron-prebuilt": "^1.4.12",
+    "tinify": "^1.3.0"
+  }
+}
