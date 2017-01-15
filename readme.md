@@ -8,6 +8,8 @@ tinyPNG本身自带nodejs工具，可以见此：[tinify-github](https://github.
 
 本工具基于 [electron](http://electron.atom.io/) 构建。
 
+![image](https://raw.githubusercontent.com/yukapril/tinyPNG/master/screenshot.tidy.png)
+
 ## 运行
 
 首先要 `npm install` 安装依赖
