@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const {ipcRenderer} = require('electron');
+const {
+    ipcRenderer
+} = require('electron');
 const srcPath = './src/js/components/';
 const auth = require(srcPath + 'auth');
 const request = require(srcPath + 'tinyPNG');
@@ -17,7 +19,7 @@ var CONFIG = {};
 try {
     CONFIG_DEFAULT = require('./config.json');
     CONFIG_USER = require(APP_PATH + '/config.json');
-} catch (ex) { }
+} catch (ex) {}
 
 Object.assign(CONFIG, CONFIG_DEFAULT, CONFIG_USER);
 
@@ -36,7 +38,7 @@ document.ready = function (callback) {
 }
 
 var main = {
-    drag: (next = () => { }) => {
+    drag: (next = () => {}) => {
         document.body.ondragover = document.body.ondrop = (e) => {
             e.preventDefault();
             return false;
@@ -118,7 +120,7 @@ var vueApp = new Vue({
                                 i.status = 99;
                             }
                         });
-                    } (item));
+                    }(item));
                 }
             }
         }

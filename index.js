@@ -6,7 +6,8 @@ const {
     ipcMain
 } = require('electron');
 const path = require('path');
-const appPath = path.parse(app.getPath('exe')).dir;
+var appPath = path.parse(app.getPath('exe')).dir;
+appPath = appPath.replace(/([A-Za-z\d]+\.app)\/Contents\/MacOS/, ''); //处理Mac路径
 
 const template = [{
     label: '',
