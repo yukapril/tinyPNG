@@ -91,27 +91,35 @@ var vueApp = new Vue({
                 return;
             }
             for (let item of this.list) {
-                (function (i) {
-                    i.status = '进行中...';
-                    main.tinypng(i.path, (json) => {
-                        var data = {};
-                        try {
-                            data = JSON.parse(json.body);
-                            if (data.error === 'Unauthorized') {
-                                i.status = "key无效"
-                            } else {
-                                i.nsize = size(data.output.size);
-                                i.ratio = (data.output.ratio * 100).toFixed(2);
-                                var dst = i.pathWithoutName + '/' + i.nameWithoutExt + '.tiny' + i.ext;
-                                getFile(data.output.url, dst, () => {
-                                    i.status = '完成';
-                                });
+
+                if (item.status !== 1 && item.status !== 2) {
+                    // 不是进行中/已完成状态
+                    (function (i) {
+                        i.statusName = '进行中...';
+                        i.status = 1;
+                        main.tinypng(i.path, (json) => {
+                            var data = {};
+                            try {
+                                data = JSON.parse(json.body);
+                                if (data.error === 'Unauthorized') {
+                                    i.statusName = "key无效";
+                                    i.status = 11;
+                                } else {
+                                    i.nsize = size(data.output.size);
+                                    i.ratio = (data.output.ratio * 100).toFixed(2);
+                                    var dst = i.pathWithoutName + '/' + i.nameWithoutExt + '.tiny' + i.ext;
+                                    getFile(data.output.url, dst, () => {
+                                        i.statusName = '完成';
+                                        i.status = 2;
+                                    });
+                                }
+                            } catch (ex) {
+                                i.statusName = '失败';
+                                i.status = 99;
                             }
-                        } catch (ex) {
-                            i.status = '失败';
-                        }
-                    });
-                } (item));
+                        });
+                    } (item));
+                }
             }
         }
     }
@@ -141,7 +149,8 @@ document.ready(() => {
                 ext: p.ext,
                 pathWithoutName: p.dir,
                 nameWithoutExt: p.name,
-                status: '准备',
+                statusName: '准备',
+                status: 0, //0:准备，1:进行中，2:完成，11:key无效，99:失败（tiny返回错误json数据）
                 osize: size(file.size),
                 nsize: '',
                 ratio: ''
