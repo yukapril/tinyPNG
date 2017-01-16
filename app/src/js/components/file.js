@@ -1,4 +1,5 @@
 const https = require('https');
+const fs = require('fs');
 
 var readFile = (filePath, next = () => {}) => {
     fs.readFile(filePath, (err, data) => {
