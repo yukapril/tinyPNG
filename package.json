@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "pack:win": "electron-packager ./ TinyPNG --platform=win32 --arch=all --out=./pack --overwrite --download.mirror=https://npm.taobao.org/mirrors/electron/",
-    "pack:mac": "electron-packager ./ TinyPNG --platform=mas --arch=all --out=./pack --overwrite --download.mirror=https://npm.taobao.org/mirrors/electron/"
+    "pack:mac": "electron-packager ./ TinyPNG --platform=mas --arch=all --out=./pack --overwrite --download.mirror=https://npm.taobao.org/mirrors/electron/",
+    "pack:linux": "electron-packager ./ TinyPNG --platform=linux --arch=all --out=./pack --overwrite --download.mirror=https://npm.taobao.org/mirrors/electron/"
   },
   "author": "yukapril",
   "license": "ISC",
