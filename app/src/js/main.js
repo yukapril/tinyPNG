@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const {ipcRenderer} = require('electron');
 const srcPath = './src/js/components/';
 const auth = require(srcPath + 'auth');
 const request = require(srcPath + 'tinyPNG');
@@ -8,23 +9,15 @@ const {
     getFile
 } = require(srcPath + 'file');
 const size = require(srcPath + 'size');
+const APP_PATH = ipcRenderer.sendSync('appPath', '');
 
-var exePath = path.resolve(__dirname);
-if (process.platform === 'darwin') {
-    exePath = path.resolve(exePath, '../../../../../')
-} else if (process.platform === 'win') {
-
-} else {
-
-}
-console.log('当前工作目录path：', exePath);
 var CONFIG_DEFAULT = {};
 var CONFIG_USER = {};
 var CONFIG = {};
 try {
     CONFIG_DEFAULT = require('./config.json');
-    CONFIG_USER = require(exePath + '/config.json');
-} catch (ex) {}
+    CONFIG_USER = require(APP_PATH + '/config.json');
+} catch (ex) { }
 
 Object.assign(CONFIG, CONFIG_DEFAULT, CONFIG_USER);
 
@@ -43,7 +36,7 @@ document.ready = function (callback) {
 }
 
 var main = {
-    drag: (next = () => {}) => {
+    drag: (next = () => { }) => {
         document.body.ondragover = document.body.ondrop = (e) => {
             e.preventDefault();
             return false;
@@ -74,7 +67,7 @@ var main = {
     },
     tinypng: (filePath, next) => {
         readFile(filePath, (data) => {
-            var authStr = auth(app.key);
+            var authStr = auth(vueApp.key);
             request(authStr, data, (json) => {
                 next(json);
             });
@@ -82,7 +75,7 @@ var main = {
     }
 }
 
-var app = new Vue({
+var vueApp = new Vue({
     el: '#J_App',
     data: {
         key: KEY,
@@ -93,7 +86,7 @@ var app = new Vue({
             this.list.splice(this.list.indexOf(item), 1);
         },
         tiny: function () {
-            if (!app.key) {
+            if (!vueApp.key) {
                 alert('key不存在。');
                 return;
             }
@@ -104,17 +97,21 @@ var app = new Vue({
                         var data = {};
                         try {
                             data = JSON.parse(json.body);
-                            i.nsize = size(data.output.size);
-                            i.ratio = (data.output.ratio * 100).toFixed(2);
-                            var dst = i.pathWithoutName + '/' + i.nameWithoutExt + '.tiny' + i.ext;
-                            getFile(data.output.url, dst, () => {
-                                i.status = '完成';
-                            });
+                            if (data.error === 'Unauthorized') {
+                                i.status = "key无效"
+                            } else {
+                                i.nsize = size(data.output.size);
+                                i.ratio = (data.output.ratio * 100).toFixed(2);
+                                var dst = i.pathWithoutName + '/' + i.nameWithoutExt + '.tiny' + i.ext;
+                                getFile(data.output.url, dst, () => {
+                                    i.status = '完成';
+                                });
+                            }
                         } catch (ex) {
                             i.status = '失败';
                         }
                     });
-                }(item));
+                } (item));
             }
         }
     }
@@ -137,7 +134,7 @@ document.ready(() => {
 
             // 解析文件属性
             var p = path.parse(file.path);
-            app.list.push({
+            vueApp.list.push({
                 id: ++uid,
                 path: file.path,
                 name: file.name,

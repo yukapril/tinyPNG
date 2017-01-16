@@ -2,8 +2,11 @@
 const {
     app,
     BrowserWindow,
-    Menu
+    Menu,
+    ipcMain
 } = require('electron');
+const path = require('path');
+const appPath = path.parse(app.getPath('exe')).dir;
 
 const template = [{
     label: '',
@@ -103,3 +106,7 @@ app.on('ready', () => {
 app.on('window-all-closed', () => {
     app.exit(0);
 });
+
+ipcMain.on('appPath', (event, arg) => {
+    event.returnValue = appPath;
+})
