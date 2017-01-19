@@ -14,7 +14,6 @@
   "license": "ISC",
   "dependencies": {
     "electron-packager": "^8.4.0",
-    "electron-prebuilt": "^1.4.12",
-    "tinify": "^1.3.0"
+    "electron-prebuilt": "^1.4.12"
   }
 }
